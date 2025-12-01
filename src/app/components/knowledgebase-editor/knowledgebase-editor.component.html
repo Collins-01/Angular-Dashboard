@@ -1,0 +1,59 @@
+<div class="knowledgebase-editor p-6">
+    <!-- Header -->
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">Knowledgebase Editor</h2>
+            <p class="text-gray-600 dark:text-gray-400">Create and edit documentation with markdown</p>
+        </div>
+        <button (click)="saveContent()"
+            class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 flex items-center gap-2">
+            <span>💾</span>
+            <span>Save</span>
+        </button>
+    </div>
+
+    <!-- Save Status -->
+    <div *ngIf="saveStatus()"
+        class="mb-4 p-3 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg">
+        {{ saveStatus() }}
+    </div>
+
+    <!-- Split View Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-300">Editor</h3>
+                </div>
+                <textarea [ngModel]="markdownContent()" (ngModelChange)="onContentChange($event)"
+                    class="w-full h-[600px] p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-mono text-sm resize-none focus:outline-none"
+                    placeholder="Start typing your markdown here..."></textarea>
+            </div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-300">Preview</h3>
+                </div>
+                <div class="preview-content p-4 h-[600px] overflow-y-auto text-gray-900 dark:text-white"
+                    [innerHTML]="previewHtml()"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Markdown Cheatsheet -->
+    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-300 mb-2">Quick Markdown Reference</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-blue-800 dark:text-blue-200">
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded"># Heading 1</code></div>
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">**bold**</code></div>
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">*italic*</code></div>
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">`code`</code></div>
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">[link](url)</code></div>
+            <div><code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">* list item</code></div>
+        </div>
+    </div>
+</div>
