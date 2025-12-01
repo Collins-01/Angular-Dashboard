@@ -7,8 +7,15 @@
 
     <!-- Filter Buttons -->
     <div class="flex flex-wrap gap-2 mb-6">
-        <button *ngFor="let filter of filters" (click)="applyFilter(filter)" [class.active]="currentFilter() === filter"
-            class="filter-btn px-4 py-2 rounded-lg font-medium transition-all duration-200">
+        <button *ngFor="let filter of filters" (click)="applyFilter(filter)"
+            [class.bg-blue-600]="currentFilter() === filter" [class.text-white]="currentFilter() === filter"
+            [class.dark:bg-blue-500]="currentFilter() === filter" [class.hover:bg-blue-700]="currentFilter() === filter"
+            [class.dark:hover:bg-blue-600]="currentFilter() === filter" [class.bg-gray-100]="currentFilter() !== filter"
+            [class.text-gray-700]="currentFilter() !== filter" [class.dark:bg-gray-700]="currentFilter() !== filter"
+            [class.dark:text-gray-300]="currentFilter() !== filter"
+            [class.hover:bg-gray-200]="currentFilter() !== filter"
+            [class.dark:hover:bg-gray-600]="currentFilter() !== filter"
+            class="px-4 py-2 rounded-lg font-medium transition-all duration-200">
             {{ filter }}
         </button>
     </div>

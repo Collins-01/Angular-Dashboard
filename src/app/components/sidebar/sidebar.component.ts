@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
 
 /**
@@ -38,7 +38,15 @@ export class SidebarComponent {
         { label: 'Logs', route: '/logs', icon: '📋' }
     ];
 
-    constructor(public themeService: ThemeService) { }
+    constructor(
+        public themeService: ThemeService,
+        @Inject(PLATFORM_ID) private platformId: Object
+    ) {
+        // Auto-collapse on mobile (screen width < 768px)
+        if (isPlatformBrowser(this.platformId)) {
+            this.isCollapsed.set(window.innerWidth < 768);
+        }
+    }
 
     /**
      * Toggle sidebar collapsed state
