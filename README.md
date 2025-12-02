@@ -1,59 +1,106 @@
-# TurbovetsAdmin
+# TurboVets Admin Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+A modern, responsive, and feature-rich admin dashboard built with **Angular 16+** and **Tailwind CSS 4**. Designed for internal tools and optimized for embedding within a Flutter WebView.
 
-## Development server
+![Dashboard Preview](https://via.placeholder.com/800x450?text=TurboVets+Admin+Dashboard)
 
-To start a local development server, run:
+## 🚀 Features
 
+### 🎨 UI & UX
+- **Pure Tailwind CSS**: Styled entirely with utility classes for consistency and performance.
+- **Dark Mode Support**: Fully integrated dark mode with system preference detection and manual toggle.
+- **Responsive Design**: Mobile-first approach with an auto-collapsing sidebar and optimized touch targets.
+- **WebView Optimized**: Custom viewport settings and body classes for native-like feel in mobile apps.
+
+### 🧩 Components
+- **Sidebar Navigation**: 
+  - Collapsible design with smooth transitions.
+  - Custom SVG icons and active state indicators.
+  - User profile section and "Back to Messages" action.
+- **Ticket Viewer**:
+  - Tabular view for desktop, card view for mobile.
+  - Status filtering (Open, In Progress, Closed).
+  - Mock data integration.
+- **Knowledgebase Editor**:
+  - Split-view Markdown editor with live preview.
+  - LocalStorage persistence.
+  - Custom regex-based Markdown rendering.
+- **Live Logs**:
+  - Terminal-style real-time log viewer.
+  - Auto-scroll, pause/resume, and clear functionality.
+  - Color-coded log levels (INFO, WARN, ERROR).
+
+## 🛠️ Tech Stack
+
+- **Framework**: Angular 16+ (Standalone Components)
+- **Styling**: Tailwind CSS v4 (PostCSS)
+- **State Management**: Angular Signals
+- **Build Tool**: Angular CLI
+
+## 🏁 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/turbovets-admin.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd turbovets-admin
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+Start the development server:
 ```bash
-ng serve
+npm start
+```
+Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+### Building for Production
+
+Build the project artifacts:
+```bash
+npm run build
+```
+The build artifacts will be stored in the `dist/` directory.
+
+## 📱 WebView Integration
+
+This dashboard is designed to be embedded in a Flutter app. 
+
+**Key optimizations for WebView:**
+- **Viewport**: `viewport-fit=cover` and `user-scalable=no` are set in `index.html` to handle notches and prevent accidental zooming.
+- **Background**: The `<body>` tag has explicit background colors (`bg-gray-50 dark:bg-gray-900`) to prevent transparency issues during loading or overscroll.
+- **Platform Checks**: Browser-specific APIs (like `localStorage` and `window`) are guarded with `isPlatformBrowser` to support potential SSR or hybrid rendering.
+
+## 📂 Project Structure
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── knowledgebase-editor/  # Markdown editor
+│   │   ├── live-logs/             # Real-time system logs
+│   │   ├── sidebar/               # Navigation sidebar
+│   │   └── ticket-viewer/         # Support ticket grid
+│   ├── services/
+│   │   ├── theme.service.ts       # Dark mode management
+│   │   └── ticket.service.ts      # Mock data provider
+│   ├── app.routes.ts              # Routing configuration
+│   └── app.component.ts           # Root component
+├── styles.css                     # Global styles & Tailwind imports
+└── index.html                     # Entry point
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

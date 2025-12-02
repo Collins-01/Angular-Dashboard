@@ -1,0 +1,5 @@
+/* Ensure the component takes full height available */
+:host {
+    display: block;
+    height: 100%;
+}

@@ -1,0 +1,56 @@
+<div class="live-logs p-6 h-full flex flex-col">
+    <!-- Header -->
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">System Logs</h2>
+            <p class="text-gray-600 dark:text-gray-400">Real-time system activity monitoring</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex gap-3">
+            <button (click)="togglePause()"
+                class="px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                [ngClass]="isPaused() ? 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900 dark:text-green-300' : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-300'">
+                <span>{{ isPaused() ? '▶ Resume' : '⏸ Pause' }}</span>
+            </button>
+
+            <button (click)="clearLogs()"
+                class="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 rounded-lg font-medium transition-colors">
+                Clear
+            </button>
+
+            <button (click)="toggleAutoScroll()" class="px-4 py-2 rounded-lg font-medium transition-colors border"
+                [ngClass]="autoScroll() ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300' : 'bg-white border-gray-300 text-gray-600 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400'">
+                Auto-scroll: {{ autoScroll() ? 'ON' : 'OFF' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Terminal Window -->
+    <div
+        class="flex-1 bg-gray-900 rounded-lg shadow-lg overflow-hidden flex flex-col font-mono text-sm border border-gray-700">
+        <!-- Terminal Header -->
+        <div class="bg-gray-800 px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <span class="ml-2 text-gray-400 text-xs">root@turbovets-admin:~</span>
+        </div>
+
+        <!-- Log Content -->
+        <div #logContainer class="flex-1 p-4 overflow-y-auto scroll-smooth">
+            <div *ngIf="logs().length === 0" class="text-gray-500 italic">
+                Waiting for logs...
+            </div>
+
+            <div *ngFor="let log of logs()" class="mb-1 hover:bg-gray-800/50 px-1 rounded">
+                <span class="text-gray-500 mr-2">[{{ log.timestamp | date:'HH:mm:ss' }}]</span>
+                <span [class]="getLevelClass(log.level)" class="w-16 inline-block font-bold">{{ log.level }}</span>
+                <span class="text-gray-300">{{ log.message }}</span>
+            </div>
+
+            <!-- Typing cursor simulation -->
+            <div *ngIf="!isPaused()" class="mt-2 inline-block w-2 h-4 bg-gray-400 animate-pulse"></div>
+        </div>
+    </div>
+</div>
