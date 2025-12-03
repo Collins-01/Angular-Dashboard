@@ -51,6 +51,11 @@ npm start
 
 The app will be available at `http://localhost:4200`
 
+For Android development (accessible from mobile devices):
+```bash
+ng serve --host 0.0.0.0
+```
+
 ### Build for Production
 
 ```bash
