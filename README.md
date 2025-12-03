@@ -2,6 +2,14 @@
 
 Internal admin dashboard built with Angular and Tailwind CSS. Embedded in the TurboVets mobile app via Flutter WebView.
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/Screenshot 2025-12-03 at 22.12.24 (2).png" width="30%" />
+  <img src="screenshots/Screenshot 2025-12-03 at 22.12.37 (2).png" width="30%" />
+  <img src="screenshots/Screenshot 2025-12-03 at 22.12.45 (2).png" width="30%" />
+</p>
+
 ## Features
 
 - Ticket management with status filtering
