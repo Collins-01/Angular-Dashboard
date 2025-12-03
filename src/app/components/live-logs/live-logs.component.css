@@ -3,3 +3,60 @@
     display: block;
     height: 100%;
 }
+
+/* WebView optimizations */
+.live-logs {
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Improve scrolling performance on mobile */
+.live-logs [class*="overflow-y-auto"] {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+}
+
+/* Better touch targets for mobile */
+button {
+    min-height: 36px;
+    min-width: 60px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Prevent text selection in log entries for better UX */
+.live-logs .text-gray-300,
+.live-logs .text-gray-500 {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+    .animate-pulse {
+        animation: none;
+    }
+
+    .scroll-smooth {
+        scroll-behavior: auto;
+    }
+}
+
+/* Ensure proper rendering on high-DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .live-logs {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Fix for iOS Safari bottom safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .live-logs {
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+}

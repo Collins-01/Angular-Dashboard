@@ -1,20 +1,21 @@
+<!-- Mobile Menu Button -->
+<button *ngIf="isCollapsed()" (click)="toggleSidebar()"
+  class="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 md:hidden hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+  </svg>
+</button>
+
 <!-- Sidebar Container -->
-<aside [class.collapsed]="isCollapsed()" [class.overflow-visible]="isCollapsed()"
-  [class.overflow-hidden]="!isCollapsed()"
-  class="fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-50"
-  [ngClass]="isCollapsed() ? 'w-0 md:w-20' : 'w-64'">
+<aside
+  class="fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-50 flex flex-col"
+  [ngClass]="isCollapsed() ? '-translate-x-full md:translate-x-0 md:w-20' : 'translate-x-0 w-64'">
   <!-- Header -->
   <div class="p-6 flex items-center gap-4 border-b border-gray-100 dark:border-gray-800">
     <!-- Logo -->
     <div
-      class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-200 dark:shadow-none">
-      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-        </path>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
-        </path>
-      </svg>
+      class="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden shadow-lg shadow-indigo-200 dark:shadow-none">
+      <img src="logo.jpg" alt="TurboVets Logo" class="w-full h-full object-contain">
     </div>
 
     <!-- Title -->
@@ -52,7 +53,7 @@
   </nav>
 
   <!-- Footer Area -->
-  <div class="p-4 border-t border-gray-100 dark:border-gray-800 space-y-4">
+  <div class="mt-auto p-4 border-t border-gray-100 dark:border-gray-800 space-y-4">
 
     <!-- Back to Messages Button -->
     <button
@@ -68,26 +69,26 @@
       </span>
     </button>
 
-    <!-- User Profile -->
+    <!-- User Profile & Theme Toggle Container -->
     <div class="flex items-center gap-3 pt-2">
       <div
         class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold flex-shrink-0">
         {{ user.initials }}
       </div>
-      <div class="flex flex-col overflow-hidden" [ngClass]="isCollapsed() ? 'hidden' : 'flex'">
+      <div class="flex flex-col overflow-hidden flex-1" [ngClass]="isCollapsed() ? 'hidden' : 'flex'">
         <span class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ user.name }}</span>
         <span class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user.email }}</span>
       </div>
+      
+      <!-- Theme Toggle (Inline) -->
+      <button (click)="themeService.toggleTheme()"
+        class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex-shrink-0"
+        [title]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        <span class="text-sm">{{ themeService.isDarkMode() ? '☀️' : '🌙' }}</span>
+      </button>
     </div>
-
-    <!-- Theme Toggle (Mini) -->
-    <button (click)="themeService.toggleTheme()"
-      class="absolute bottom-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-      [title]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-      <span class="text-sm">{{ themeService.isDarkMode() ? '☀️' : '🌙' }}</span>
-    </button>
   </div>
 </aside>
 
 <!-- Mobile Overlay -->
-<div *ngIf="!isCollapsed()" (click)="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+<div *ngIf="!isCollapsed()" (click)="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>

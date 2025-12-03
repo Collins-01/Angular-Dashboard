@@ -1,23 +1,12 @@
 import { Component, OnDestroy, OnInit, signal, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-/**
- * Log entry interface
- */
 interface LogEntry {
     timestamp: Date;
     level: 'INFO' | 'WARN' | 'ERROR' | 'DEBUG';
     message: string;
 }
 
-/**
- * LiveLogsComponent simulates a real-time log viewer
- * Features:
- * - Auto-scrolling terminal view
- * - Color-coded log levels
- * - Pause/Resume functionality
- * - Clear logs
- */
 @Component({
     selector: 'app-live-logs',
     standalone: true,
@@ -28,15 +17,12 @@ interface LogEntry {
 export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
     @ViewChild('logContainer') logContainer!: ElementRef;
 
-    // Signals for state management
     logs = signal<LogEntry[]>([]);
     isPaused = signal<boolean>(false);
     autoScroll = signal<boolean>(true);
 
-    // Interval ID for log generation
     private intervalId: any;
 
-    // Sample log messages
     private messages = [
         'User login successful: admin',
         'Fetching data from /api/tickets',
@@ -59,7 +45,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
     ];
 
     ngOnInit(): void {
-        // Start generating logs
         this.startLogGeneration();
     }
 
@@ -71,9 +56,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.scrollToBottom();
     }
 
-    /**
-     * Toggle pause/resume state
-     */
     togglePause(): void {
         this.isPaused.update(val => !val);
         if (this.isPaused()) {
@@ -83,23 +65,14 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }
     }
 
-    /**
-     * Clear all logs
-     */
     clearLogs(): void {
         this.logs.set([]);
     }
 
-    /**
-     * Toggle auto-scroll
-     */
     toggleAutoScroll(): void {
         this.autoScroll.update(val => !val);
     }
 
-    /**
-     * Start the log generation interval
-     */
     private startLogGeneration(): void {
         if (this.intervalId) return;
 
@@ -108,9 +81,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }, 2000);
     }
 
-    /**
-     * Stop the log generation interval
-     */
     private stopLogGeneration(): void {
         if (this.intervalId) {
             clearInterval(this.intervalId);
@@ -118,9 +88,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }
     }
 
-    /**
-     * Add a random log entry
-     */
     private addRandomLog(): void {
         const random = Math.random();
         let level: 'INFO' | 'WARN' | 'ERROR' | 'DEBUG' = 'INFO';
@@ -147,7 +114,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         };
 
         this.logs.update(currentLogs => {
-            // Keep only last 100 logs to prevent memory issues
             const updatedLogs = [...currentLogs, newLog];
             if (updatedLogs.length > 100) {
                 return updatedLogs.slice(updatedLogs.length - 100);
@@ -156,9 +122,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         });
     }
 
-    /**
-     * Scroll container to bottom if auto-scroll is enabled
-     */
     private scrollToBottom(): void {
         if (this.autoScroll() && this.logContainer) {
             try {
@@ -167,9 +130,6 @@ export class LiveLogsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }
     }
 
-    /**
-     * Get color class for log level
-     */
     getLevelClass(level: string): string {
         switch (level) {
             case 'INFO': return 'text-green-400';
