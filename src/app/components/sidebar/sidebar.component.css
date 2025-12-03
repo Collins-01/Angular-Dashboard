@@ -1,0 +1,16 @@
+/* Ensure sidebar doesn't cause horizontal scroll on mobile */
+aside {
+    max-width: 100vw;
+}
+
+/* Smooth transitions for sidebar */
+aside {
+    will-change: transform;
+}
+
+/* Prevent body scroll when sidebar is open on mobile */
+@media (max-width: 767px) {
+    body:has(aside:not(.-translate-x-full)) {
+        overflow: hidden;
+    }
+}
