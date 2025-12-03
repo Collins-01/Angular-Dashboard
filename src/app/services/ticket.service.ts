@@ -18,7 +18,6 @@ export interface Ticket {
     providedIn: 'root'
 })
 export class TicketService {
-    // Mock ticket data
     private tickets: Ticket[] = [
         { id: 1001, subject: 'Unable to login to admin panel', status: 'Open', createdAt: new Date('2024-11-28') },
         { id: 1002, subject: 'Payment processing error', status: 'In Progress', createdAt: new Date('2024-11-29') },

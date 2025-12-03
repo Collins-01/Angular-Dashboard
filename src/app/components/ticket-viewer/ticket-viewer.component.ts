@@ -17,22 +17,14 @@ import { TicketService, Ticket } from '../../services/ticket.service';
     styleUrl: './ticket-viewer.component.css'
 })
 export class TicketViewerComponent implements OnInit {
-    // All tickets
     allTickets: Ticket[] = [];
-
-    // Filtered tickets to display
     filteredTickets = signal<Ticket[]>([]);
-
-    // Current filter
     currentFilter = signal<string>('All');
-
-    // Available filters
     filters = ['All', 'Open', 'In Progress', 'Closed'];
 
     constructor(private ticketService: TicketService) { }
 
     ngOnInit(): void {
-        // Load tickets on component initialization
         this.ticketService.getTickets().subscribe(tickets => {
             this.allTickets = tickets;
             this.filteredTickets.set(tickets);
